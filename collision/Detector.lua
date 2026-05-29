@@ -13,6 +13,7 @@ import("../geometry/Bounds")
 
 local DetectorCanCollide
 
+---@class Detector
 Detector = {}
 Detector.__index = Detector
 

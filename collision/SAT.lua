@@ -12,6 +12,22 @@ import("../geometry/Vector")
 
 local SATOverlapAxes, SATFindSupports, SATProjectToAxis
 
+---@class Collision
+---@field collided boolean
+---@field bodyA Body
+---@field bodyB Body
+---@field parentA Body
+---@field parentB Body
+---@field depth number
+---@field normal Vector
+---@field tangent Vector
+---@field penetration Vector
+---@field supports Vector[]
+---@field axisBody Body
+---@field axisNumber integer
+---@field reused boolean
+
+---@class SAT
 SAT = {}
 SAT.__index = SAT
 

@@ -16,7 +16,11 @@ import("Composite")
 import("../constraint/Constraint")
 import("../core/Common")
 
-class("World").extends(Composite)
+---@class World: Composite
+---@field gravity {x: number, y: number, scale: number}
+---@field bounds Bounds
+---@overload fun(options?: table): World
+World = class("World").extends(Composite) or World
 
 --[[
 * Creates a new world composite. The options parameter is an object that specifies any properties you wish to override the defaults.

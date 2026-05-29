@@ -17,6 +17,7 @@ import("../geometry/Vector")
 import("../geometry/Vertices")
 import("../libs/PolyDecomp")
 
+---@class Bodies
 Bodies = {}
 Bodies.__index = Bodies
 
