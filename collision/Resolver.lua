@@ -5,10 +5,10 @@
 ]]
 --
 
-import("matter/core/Common")
-import("matter/geometry/Vertices")
-import("matter/geometry/Vector")
-import("matter/geometry/Bounds")
+import("../core/Common")
+import("../geometry/Vertices")
+import("../geometry/Vector")
+import("../geometry/Bounds")
 
 Resolver = {}
 Resolver.__index = Resolver

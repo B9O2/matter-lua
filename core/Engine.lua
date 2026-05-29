@@ -9,17 +9,17 @@
 ]]
 --
 
-import("matter/body/World")
-import("matter/core/Sleeping")
-import("matter/collision/Resolver")
-import("matter/render/Render")
-import("matter/collision/Pairs")
-import("matter/collision/Grid")
-import("matter/core/Events")
-import("matter/body/Composite")
-import("matter/constraint/Constraint")
-import("matter/core/Common")
-import("matter/body/Body")
+import("../body/World")
+import("Sleeping")
+import("../collision/Resolver")
+import("../render/Render")
+import("../collision/Pairs")
+import("../collision/Grid")
+import("Events")
+import("../body/Composite")
+import("../constraint/Constraint")
+import("Common")
+import("../body/Body")
 
 Engine = {}
 Engine.__index = Engine

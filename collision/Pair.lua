@@ -5,7 +5,7 @@
 ]]
 --
 
-import("matter/collision/Contact")
+import("Contact")
 
 Pair = {}
 Pair.__index = Pair

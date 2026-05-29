@@ -9,13 +9,13 @@
 ]]
 --
 
-import("matter/geometry/Vertices")
-import("matter/geometry/Vector")
-import("matter/core/Sleeping")
-import("matter/render/Render")
-import("matter/core/Common")
-import("matter/geometry/Bounds")
-import("matter/geometry/Axes")
+import("../geometry/Vertices")
+import("../geometry/Vector")
+import("../core/Sleeping")
+import("../render/Render")
+import("../core/Common")
+import("../geometry/Bounds")
+import("../geometry/Axes")
 
 Body = {}
 Body.__index = Body

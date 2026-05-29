@@ -7,7 +7,7 @@
 ]]
 --
 
-import("matter/core/Common")
+import("Common")
 
 Events = {}
 Events.__index = Events

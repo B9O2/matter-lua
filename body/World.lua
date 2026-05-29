@@ -12,9 +12,9 @@
 ]]
 --
 
-import("matter/body/Composite")
-import("matter/constraint/Constraint")
-import("matter/core/Common")
+import("Composite")
+import("../constraint/Constraint")
+import("../core/Common")
 
 class("World").extends(Composite)
 

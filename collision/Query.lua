@@ -7,10 +7,10 @@
 ]]
 --
 
-import("matter/geometry/Vector")
-import("matter/collision/SAT")
-import("matter/geometry/Bounds")
-import("matter/geometry/Vertices")
+import("../geometry/Vector")
+import("SAT")
+import("../geometry/Bounds")
+import("../geometry/Vertices")
 
 Query = {}
 Query.__index = Query

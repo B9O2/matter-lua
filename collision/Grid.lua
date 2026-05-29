@@ -5,9 +5,9 @@
 ]]
 --
 
-import("matter/collision/Pair")
-import("matter/collision/Detector")
-import("matter/core/Common")
+import("Pair")
+import("Detector")
+import("../core/Common")
 
 Grid = {}
 Grid.__index = Grid

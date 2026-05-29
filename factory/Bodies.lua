@@ -10,12 +10,12 @@
 
 -- TODO: true circle bodies
 
-import("matter/core/Common")
-import("matter/body/Body")
-import("matter/geometry/Bounds")
-import("matter/geometry/Vector")
-import("matter/geometry/Vertices")
-import("matter/libs/PolyDecomp")
+import("../core/Common")
+import("../body/Body")
+import("../geometry/Bounds")
+import("../geometry/Vector")
+import("../geometry/Vertices")
+import("../libs/PolyDecomp")
 
 Bodies = {}
 Bodies.__index = Bodies

@@ -5,8 +5,8 @@
 ]]
 --
 
-import("matter/collision/Pair")
-import("matter/core/Common")
+import("Pair")
+import("../core/Common")
 
 Pairs = {}
 Pairs.__index = Pairs

@@ -7,12 +7,12 @@
 ]]
 --
 
-import("matter/core/Common")
-import("matter/body/Composite")
-import("matter/geometry/Bounds")
-import("matter/core/Events")
-import("matter/collision/Grid")
-import("matter/geometry/Vector")
+import("../core/Common")
+import("../body/Composite")
+import("../geometry/Bounds")
+import("../core/Events")
+import("../collision/Grid")
+import("../geometry/Vector")
 
 local gfx <const> = playdate.graphics
 local geom <const> = playdate.geometry

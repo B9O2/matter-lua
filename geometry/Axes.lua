@@ -5,8 +5,8 @@
 ]]
 --
 
-import("matter/geometry/Vector")
-import("matter/core/Common")
+import("Vector")
+import("../core/Common")
 
 Axes = {}
 Axes.__index = Axes

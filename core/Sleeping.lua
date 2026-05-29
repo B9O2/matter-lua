@@ -5,7 +5,7 @@
 ]]
 --
 
-import("matter/core/Events")
+import("Events")
 
 Sleeping = {}
 Sleeping.__index = Sleeping

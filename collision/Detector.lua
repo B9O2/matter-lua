@@ -7,9 +7,9 @@
 
 -- TODO: speculative contacts
 
-import("matter/collision/SAT")
-import("matter/collision/Pair")
-import("matter/geometry/Bounds")
+import("SAT")
+import("Pair")
+import("../geometry/Bounds")
 
 local DetectorCanCollide
 

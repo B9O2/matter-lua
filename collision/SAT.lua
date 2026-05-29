@@ -7,8 +7,8 @@
 
 -- TODO: true circles and curves
 
-import("matter/geometry/Vertices")
-import("matter/geometry/Vector")
+import("../geometry/Vertices")
+import("../geometry/Vector")
 
 local SATOverlapAxes, SATFindSupports, SATProjectToAxis
 

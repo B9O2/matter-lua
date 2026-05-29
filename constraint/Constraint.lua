@@ -9,12 +9,12 @@
 ]]
 --
 
-import("matter/geometry/Vertices")
-import("matter/geometry/Vector")
-import("matter/core/Sleeping")
-import("matter/geometry/Bounds")
-import("matter/geometry/Axes")
-import("matter/core/Common")
+import("../geometry/Vertices")
+import("../geometry/Vector")
+import("../core/Sleeping")
+import("../geometry/Bounds")
+import("../geometry/Axes")
+import("../core/Common")
 
 Constraint = {}
 Constraint.__index = Constraint

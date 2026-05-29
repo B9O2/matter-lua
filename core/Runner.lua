@@ -11,10 +11,10 @@
 ]]
 --
 
-import("matter/core/Events")
-import("matter/core/Engine")
-import("matter/core/Common")
-import("matter/render/Render")
+import("Events")
+import("Engine")
+import("Common")
+import("../render/Render")
 
 class("Runner").extends(playdate.graphics.sprite)
 
