@@ -21,6 +21,18 @@ import("../constraint/Constraint")
 import("Common")
 import("../body/Body")
 
+---@class Engine
+---@field positionIterations integer
+---@field velocityIterations integer
+---@field constraintIterations integer
+---@field enableSleeping boolean
+---@field events table
+---@field plugin table
+---@field timing {timestamp: number, timeScale: number}
+---@field broadphase {controller: any}
+---@field world World
+---@field pairs Pairs
+---@overload fun(options?: table): Engine
 Engine = {}
 Engine.__index = Engine
 

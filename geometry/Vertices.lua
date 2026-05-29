@@ -14,6 +14,12 @@ import("Vector")
 
 local geom = playdate.geometry
 
+---@class Vertex: Vector
+---@field index integer
+---@field body Body
+---@field isInternal boolean
+
+---@class Vertices
 Vertices = {}
 Vertices.__index = Vertices
 

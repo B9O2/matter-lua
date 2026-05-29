@@ -11,6 +11,10 @@
 
 -- TODO: consider params for reusing vector objects
 
+---@class Vector
+---@field x number
+---@field y number
+---@overload fun(x?: number, y?: number): Vector
 Vector = {}
 Vector.__index = Vector
 

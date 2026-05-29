@@ -17,6 +17,16 @@ import("../geometry/Vector")
 local gfx <const> = playdate.graphics
 local geom <const> = playdate.geometry
 
+---@class Render
+---@field controller any
+---@field engine Engine
+---@field element any
+---@field canvas table
+---@field context any
+---@field textures table
+---@field bounds Bounds
+---@field options {width: number, height: number, pixelRatio: number, background: any, wireframeBackground: any, hasBounds: boolean, enabled: boolean, wireframes: boolean, showSleeping: boolean, showDebug: boolean, showBroadphase: boolean, showBounds: boolean, showVelocity: boolean, showCollisions: boolean, showSeparations: boolean, showAxes: boolean, showPositions: boolean, showAngleIndicator: boolean, showIds: boolean, showShadows: boolean, showVertexNumbers: boolean, showConvexHulls: boolean, showInternalEdges: boolean, showMousePosition: boolean}
+---@overload fun(options?: table): Render
 Render = {}
 Render.__index = Render
 

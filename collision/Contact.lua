@@ -5,6 +5,12 @@
 ]]
 --
 
+---@class Contact
+---@field id string
+---@field vertex Vertex
+---@field normalImpulse number
+---@field tangentImpulse number
+---@overload fun(vertex: Vertex): Contact
 Contact = {}
 Contact.__index = Contact
 

@@ -8,6 +8,13 @@
 import("Pair")
 import("../core/Common")
 
+---@class Pairs
+---@field table table<string, Pair>
+---@field list Pair[]
+---@field collisionStart Pair[]
+---@field collisionActive Pair[]
+---@field collisionEnd Pair[]
+---@overload fun(options?: table): Pairs
 Pairs = {}
 Pairs.__index = Pairs
 

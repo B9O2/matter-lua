@@ -10,7 +10,18 @@
 ]]
 --
 
-class("Composite").extends()
+---@class Composite
+---@field id integer
+---@field type string
+---@field parent Composite
+---@field isModified boolean
+---@field bodies Body[]
+---@field constraints Constraint[]
+---@field composites Composite[]
+---@field label string
+---@field plugin table
+---@overload fun(options?: table): Composite
+Composite = class("Composite").extends() or Composite
 
 --[[
  * Creates a new composite. The options parameter is an object that specifies any properties you wish to override the defaults.

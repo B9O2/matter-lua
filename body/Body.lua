@@ -18,6 +18,51 @@ import("../geometry/Bounds")
 import("../geometry/Axes")
 import("../helpers/table")
 
+---@class Body
+---@field id integer
+---@field type string
+---@field label string
+---@field parts Body[]
+---@field plugin table
+---@field angle number
+---@field vertices Vertex[]
+---@field position Vector
+---@field force Vector
+---@field torque number
+---@field positionImpulse Vector
+---@field constraintImpulse {x: number, y: number, angle: number}
+---@field totalContacts integer
+---@field speed number
+---@field angularSpeed number
+---@field velocity Vector
+---@field angularVelocity number
+---@field isSensor boolean
+---@field isStatic boolean
+---@field isSleeping boolean
+---@field motion number
+---@field sleepThreshold number
+---@field density number
+---@field restitution number
+---@field friction number
+---@field frictionStatic number
+---@field frictionAir number
+---@field collisionFilter {category: integer, mask: integer, group: integer}
+---@field slop number
+---@field timeScale number
+---@field render {visible: boolean, opacity: number, sprite: {xScale: number, yScale: number, xOffset: number, yOffset: number}, lineWidth: number, fillStyle?: string, strokeStyle?: string}
+---@field events any
+---@field bounds Bounds
+---@field chamfer any
+---@field circleRadius number
+---@field positionPrev Vector
+---@field anglePrev number
+---@field parent Body
+---@field axes Vector[]
+---@field area number
+---@field mass number
+---@field inertia number
+---@field _original table
+---@overload fun(options?: table): Body
 Body = {}
 Body.__index = Body
 

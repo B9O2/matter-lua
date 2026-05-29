@@ -12,6 +12,7 @@ import("SAT")
 import("../geometry/Bounds")
 import("../geometry/Vertices")
 
+---@class Query
 Query = {}
 Query.__index = Query
 

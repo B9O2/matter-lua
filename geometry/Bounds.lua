@@ -5,6 +5,10 @@
 ]]
 --
 
+---@class Bounds
+---@field min Vector
+---@field max Vector
+---@overload fun(vertices?: Vector[]): Bounds
 Bounds = {}
 Bounds.__index = Bounds
 

@@ -7,6 +7,25 @@
 
 import("Contact")
 
+---@class Pair
+---@field id string
+---@field bodyA Body
+---@field bodyB Body
+---@field contacts table<string, Contact>
+---@field activeContacts Contact[]
+---@field separation number
+---@field isActive boolean
+---@field confirmedActive boolean
+---@field isSensor boolean
+---@field timeCreated number
+---@field timeUpdated number
+---@field inverseMass number
+---@field friction number
+---@field frictionStatic number
+---@field restitution number
+---@field slop number
+---@field collision Collision
+---@overload fun(collision: Collision, timestamp: number): Pair
 Pair = {}
 Pair.__index = Pair
 

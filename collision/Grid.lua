@@ -9,6 +9,15 @@ import("Pair")
 import("Detector")
 import("../core/Common")
 
+---@class Grid
+---@field controller any
+---@field detector fun(broadphasePairs: Pair[], engine: Engine): Collision[]
+---@field buckets table<string, Body[]>
+---@field pairs table<string, any[]>
+---@field pairsList any[][]
+---@field bucketWidth number
+---@field bucketHeight number
+---@overload fun(options?: table): Grid
 Grid = {}
 Grid.__index = Grid
 

@@ -16,7 +16,23 @@ import("Engine")
 import("Common")
 import("../render/Render")
 
-class("Runner").extends(playdate.graphics.sprite)
+---@class Runner: _Sprite
+---@field fps number
+---@field correction number
+---@field deltaSampleSize integer
+---@field counterTimestamp number
+---@field frameCounter integer
+---@field deltaHistory number[]
+---@field timePrev number
+---@field timeScalePrev number
+---@field frameRequestId any
+---@field isFixed boolean
+---@field enabled boolean
+---@field delta number
+---@field deltaMin number
+---@field deltaMax number
+---@overload fun(options?: table): Runner
+Runner = class("Runner").extends(playdate.graphics.sprite) or Runner
 
 function Runner:init(runner, engine, render)
 	self.runner = runner
