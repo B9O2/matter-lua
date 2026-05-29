@@ -6,16 +6,16 @@
 * See the included usage [examples](https:--github.com/liabru/matter-js/tree/master/examples).
 *
 * @class Vertices
-]]--
+]]
+--
 
-import 'matter/core/Common'
-import 'matter/geometry/Vector'
+import("../core/Common")
+import("Vector")
 
 local geom = playdate.geometry
 
 Vertices = {}
 Vertices.__index = Vertices
-
 
 --[[
 * Creates a new set of `Matter.Body` compatible vertices.
@@ -33,10 +33,10 @@ Vertices.__index = Vertices
 * @method create
 * @param {vector[]} points
 * @param {body} body
-]]--
+]]
+--
 
 function Vertices.create(points, body)
-
 	local vertices = {}
 	-- local point
 
@@ -48,7 +48,7 @@ function Vertices.create(points, body)
 			y = point.y,
 			index = i,
 			body = body,
-			isInternal = false
+			isInternal = false,
 		})
 	end
 
@@ -63,16 +63,16 @@ end
 	 * @param {string} path
 	 * @param {body} body
 	 * @return {vertices} vertices
-]]--
+]]
+--
 
 function Vertices.fromPath(path, body)
-
-	 -- /L?\s*([-\d.e]+)[\s,]*([-\d.e]+)*/ig
-	local pathPattern = 'L?%s*([-%d.e]+)[%s,]*([-%d.e]+)'
+	-- /L?\s*([-\d.e]+)[\s,]*([-\d.e]+)*/ig
+	local pathPattern = "L?%s*([-%d.e]+)[%s,]*([-%d.e]+)"
 	local points = {}
 
 	string.gsub(path, pathPattern, function(x, y)
-		table.insert(points, {x = tonumber(x), y = tonumber(y)})
+		table.insert(points, { x = tonumber(x), y = tonumber(y) })
 	end)
 
 	return Vertices.create(points, body)
@@ -94,19 +94,15 @@ end
 	 * @method centre
 	 * @param {vertices} vertices
 	 * @return {vector} The centre point
- ]]--
+ ]]
+--
 function Vertices.centre__(vertices)
-
 	local centreX, centreY = 0, 0
 	local n = #vertices
-	local aX, aY,
-		bX, bY
-		-- tempX, tempY,
-		scalar,
-		j
+	local aX, aY, bX, bY, 	-- tempX, tempY,
+scalar, j
 
 	for i = 1, n do
-
 		j = (i + 1) % n
 		j = j ~= 0 and j or n
 
@@ -125,29 +121,23 @@ function Vertices.centre__(vertices)
 		-- centreX, centreY = centreX + tempX, centreY + tempY
 
 		-- v3.
-		scalar = (aX*bY) - (aY * bX)
+		scalar = (aX * bY) - (aY * bX)
 		centreX, centreY = centreX + ((aX + bX) * scalar), centreY + ((aY + bY) * scalar)
-
 	end
 
 	-- return vectorDiv(centreX, centreY, 6 * Vertices.area(vertices, true))
 
 	scalar = 6 * Vertices.area(vertices, true)
 	return { x = centreX / scalar, y = centreY / scalar }
-
 end
 
 function Vertices.centre(vertices)
-
 	local area = Vertices.area(vertices, true)
 	local n = #vertices
-	local centre = { x= 0, y= 0 }
-	local cross,
-			temp,
-			j
+	local centre = { x = 0, y = 0 }
+	local cross, temp, j
 
 	for i = 1, n do
-
 		j = (i + 1) % n
 		j = j ~= 0 and j or n
 
@@ -164,9 +154,9 @@ end
 	 * @method mean
 	 * @param {vertices} vertices
 	 * @return {vector} The average point
-]]--
+]]
+--
 function Vertices.mean(vertices)
-
 	local averageX, averageY = 0, 0
 	local n = #vertices
 
@@ -187,9 +177,10 @@ end
 	 * @param {vertices} vertices
 	 * @param {bool} signed
 	 * @return {number} The area
- ]]--
+ ]]
+--
 
- function Vertices.area(vertices, signed)
+function Vertices.area(vertices, signed)
 	local area = 0
 	local j = #vertices
 
@@ -198,7 +189,7 @@ end
 		j = i
 	end
 
-	if (signed) then
+	if signed then
 		return area / 2
 	end
 
@@ -211,33 +202,32 @@ end
 	 * @param {vertices} vertices
 	 * @param {number} mass
 	 * @return {number} The polygon's moment of inertia
-]]--
+]]
+--
 function Vertices.inertia(vertices, mass)
-		local numerator = 0
-		local denominator = 0
-		local n = #vertices
-		local cross,
-			a, b,
-			j
+	local numerator = 0
+	local denominator = 0
+	local n = #vertices
+	local cross, aX, aY, bX, bY, j
 
-		-- find the polygon's moment of inertia, using second moment of area
-		-- from equations at http:--www.physicsforums.com/showthread.php?t=25293
+	-- find the polygon's moment of inertia, using second moment of area
+	-- from equations at http:--www.physicsforums.com/showthread.php?t=25293
 
-		for i = 1, n do
-			j = (i + 1) % n
-			j = j ~= 0 and j or n
-			aX, aY = vertices[i].x, vertices[i].y
-			bX, bY = vertices[j].x, vertices[j].y
-			-- cross = math.abs(vectorCross(bX, bY, aX, aY))
+	for i = 1, n do
+		j = (i + 1) % n
+		j = j ~= 0 and j or n
+		aX, aY = vertices[i].x, vertices[i].y
+		bX, bY = vertices[j].x, vertices[j].y
+		-- cross = math.abs(vectorCross(bX, bY, aX, aY))
 
-			cross = math.abs(bX * aY - bY * aX)
-			-- numerator += cross * (vectorDot(bX, bY, bX, bY) + vectorDot(bX, bY, aX, aY) + vectorDot(aX, aY, aX, aY))
+		cross = math.abs(bX * aY - bY * aX)
+		-- numerator += cross * (vectorDot(bX, bY, bX, bY) + vectorDot(bX, bY, aX, aY) + vectorDot(aX, aY, aX, aY))
 
-			numerator += cross * ((bX * bX + bY * bY) + (bX * aX + bY * aY) + (aX * aX + aY * aY))
-			denominator += cross
-		end
+		numerator += cross * ((bX * bX + bY * bY) + (bX * aX + bY * aY) + (aX * aX + aY * aY))
+		denominator += cross
+	end
 
-		return (mass / 6) * (numerator / denominator)
+	return (mass / 6) * (numerator / denominator)
 end
 
 --[[
@@ -246,24 +236,24 @@ end
 	 * @param {vertices} vertices
 	 * @param {vector} vector
 	 * @param {number} scalar
-]]--
+]]
+--
 function Vertices.translate(vertices, vector, scalar)
+	local vx, vy = vector.x, vector.y
 
-		local vx, vy = vector.x, vector.y
-
-		if (scalar) then
-			for i = 1, #vertices do
-				vertices[i].x += vx * scalar
-				vertices[i].y += vy * scalar
-			end
-		else
-			for i = 1, #vertices do
-				vertices[i].x += vx
-				vertices[i].y += vy
-			end
+	if scalar then
+		for i = 1, #vertices do
+			vertices[i].x += vx * scalar
+			vertices[i].y += vy * scalar
 		end
+	else
+		for i = 1, #vertices do
+			vertices[i].x += vx
+			vertices[i].y += vy
+		end
+	end
 
-		return vertices
+	return vertices
 end
 
 --[[
@@ -272,16 +262,16 @@ end
 	 * @param {vertices} vertices
 	 * @param {number} angle
 	 * @param {vector} point
-]]--
+]]
+--
 function Vertices.rotate(vertices, angle, point)
-
-	if (angle == 0) then
+	if angle == 0 then
 		return
 	end
 
 	local cos = math.cos(angle)
 	local sin = math.sin(angle)
-	local px, py = 	point.x, point.y
+	local px, py = point.x, point.y
 	local dx, dy
 
 	for i = 1, #vertices do
@@ -302,16 +292,13 @@ end
 	 * @param {vertices} vertices
 	 * @param {vector} point
 	 * @return {boolean} True if the vertices contains point, otherwise false
- ]]--
- function Vertices.contains(vertices, point)
-
-	local px, py = 	point.x, point.y
+ ]]
+--
+function Vertices.contains(vertices, point)
+	local px, py = point.x, point.y
 	local n = #vertices
 
-	local vertice,
-		nextVertice,
-		nextVerticeIndex,
-		vx, vy
+	local vertice, nextVertice, nextVerticeIndex, vx, vy
 
 	for i = 1, n do
 		vertice = vertices[i]
@@ -320,7 +307,7 @@ end
 		nextVerticeIndex = (i + 1) % n
 		nextVertice = vertices[nextVerticeIndex ~= 0 and nextVerticeIndex or n]
 
-		if ((px - vx) * (nextVertice.y - vy) + (py - vy) * (vx - nextVertice.x) > 0) then
+		if (px - vx) * (nextVertice.y - vy) + (py - vy) * (vx - nextVertice.x) > 0 then
 			return false
 		end
 	end
@@ -335,19 +322,19 @@ end
 	 * @param {number} scaleX
 	 * @param {number} scaleY
 	 * @param {vector} point
-]]--
+]]
+--
 
 function Vertices.scale(vertices, scaleX, scaleY, point)
-
-	if (scaleX == 1 and scaleY == 1) then
+	if scaleX == 1 and scaleY == 1 then
 		return vertices
 	end
 
 	point = point or Vertices.centre(vertices)
 
-	local px, py = 	point.x, point.y
+	local px, py = point.x, point.y
 	local vertex
-		-- deltaX, deltaY
+	-- deltaX, deltaY
 
 	for i = 1, #vertices do
 		vertex = vertices[i]
@@ -374,14 +361,14 @@ end
 	 * @param {number} quality
 	 * @param {number} qualityMin
 	 * @param {number} qualityMax
-]]--
+]]
+--
 
 function Vertices.chamfer(vertices, radius, quality, qualityMin, qualityMax)
-
-	if (type(radius) == 'number') then
-		radius = {radius}
+	if type(radius) == "number" then
+		radius = { radius }
 	else
-		radius = radius or {8}
+		radius = radius or { 8 }
 	end
 
 	-- quality defaults to -1, which is auto
@@ -392,25 +379,14 @@ function Vertices.chamfer(vertices, radius, quality, qualityMin, qualityMax)
 	local n = #vertices
 	local newVertices = {}
 
-	local vertex,
-		prevVertex,	prevNormalX, prevNormalY,
-		nextVertex, nextNormalX, nextNormalY,
-		currentRadius,
-		radiusVectorX, radiusVectorY
-		-- midNormalX, midNormalY,
-		scaledVertexX, scaledVertexY,
-		precision,
-		theta,
-		scalar
-		-- vx, vy
+	local vertex, prevVertex, prevNormalX, prevNormalY, nextVertex, nextNormalX, nextNormalY, currentRadius, radiusVectorX, radiusVectorY, midNormalX, midNormalY, scaledVertexX, scaledVertexY, precision, theta, scalar, vertexX, vertexY, cos, sin, vx, vy
 
 	for i = 1, n do
 		repeat
-
 			vertex = vertices[i]
 			currentRadius = radius[i <= #radius and i or #radius]
 
-			if (currentRadius == 0) then
+			if currentRadius == 0 then
 				table.insert(newVertices, vertex)
 				break
 			end
@@ -420,15 +396,9 @@ function Vertices.chamfer(vertices, radius, quality, qualityMin, qualityMax)
 			nextVertex = vertices[nextVertex ~= 0 and nextVertex or n]
 			vertexX, vertexY = vertex.x, vertex.y
 
-			prevNormalX, prevNormalY = vectorNormalise(
-				vertexY - prevVertex.y,
-				prevVertex.x - vertexX
-			)
+			prevNormalX, prevNormalY = vectorNormalise(vertexY - prevVertex.y, prevVertex.x - vertexX)
 
-			nextNormalX, nextNormalY = vectorNormalise(
-				nextVertex.y - vertexY,
-				vertexX - nextVertex.x
-			)
+			nextNormalX, nextNormalY = vectorNormalise(nextVertex.y - vertexY, vertexX - nextVertex.x)
 
 			-- v1
 			-- radiusVectorX, radiusVectorY = vectorMult(prevNormalX, prevNormalY, currentRadius)
@@ -446,7 +416,8 @@ function Vertices.chamfer(vertices, radius, quality, qualityMin, qualityMax)
 			-- midNormalX, midNormalY = vectorNormalise(vectorMult(vx, vy, 0.5))
 
 			-- v2
-			midNormalX, midNormalY = vectorNormalise((prevNormalX + nextNormalX) * 0.5, (prevNormalY + nextNormalY) * 0.5)
+			midNormalX, midNormalY =
+				vectorNormalise((prevNormalX + nextNormalX) * 0.5, (prevNormalY + nextNormalY) * 0.5)
 
 			-- mult midNormal and diagonalRadius
 			-- v1
@@ -460,11 +431,11 @@ function Vertices.chamfer(vertices, radius, quality, qualityMin, qualityMax)
 			-- scaledVertexX, scaledVertexY = vectorSub(vertexX, vertexY, vx, vy)
 
 			-- v2
-			scaledVertexX, scaledVertexY = vertexX - ( midNormalX * scalar), vertexY - (midNormalY * scalar)
+			scaledVertexX, scaledVertexY = vertexX - (midNormalX * scalar), vertexY - (midNormalY * scalar)
 
 			precision = quality
 
-			if (quality == -1) then
+			if quality == -1 then
 				-- automatically decide precision
 				precision = math.pow(currentRadius, 0.32) * 1.75
 			end
@@ -473,7 +444,7 @@ function Vertices.chamfer(vertices, radius, quality, qualityMin, qualityMax)
 
 			-- use an even value for precision, more likely to reduce axes by using symmetry
 
-			if (precision % 2 == 1) then
+			if precision % 2 == 1 then
 				precision += 1
 			end
 
@@ -485,7 +456,6 @@ function Vertices.chamfer(vertices, radius, quality, qualityMin, qualityMax)
 			theta = math.acos(prevNormalX * nextNormalX + prevNormalY * nextNormalY) / precision
 
 			for j = 0, precision do
-
 				-- v1
 				-- vx, vy = vectorRotate(radiusVectorX, radiusVectorY, theta * j)
 				-- vx, vy = vectorAdd(vx, vy, scaledVertexX, scaledVertexY)
@@ -494,9 +464,9 @@ function Vertices.chamfer(vertices, radius, quality, qualityMin, qualityMax)
 				-- v2
 				cos, sin = math.cos(theta * j), math.sin(theta * j)
 
-				table.insert(newVertices,  {
+				table.insert(newVertices, {
 					x = (radiusVectorX * cos - radiusVectorY * sin) + scaledVertexX,
-					y = (radiusVectorX * sin + radiusVectorY * cos) + scaledVertexY
+					y = (radiusVectorX * sin + radiusVectorY * cos) + scaledVertexY,
 				})
 			end
 
@@ -512,19 +482,17 @@ end
 	 * @method clockwiseSort
 	 * @param {vertices} vertices
 	 * @return {vertices} vertices
- ]]--
+ ]]
+--
 
- function Vertices.clockwiseSort(vertices)
-
+function Vertices.clockwiseSort(vertices)
 	local centre = Vertices.mean(vertices)
 	local centreX, centreY = centre.x, centre.y
 
 	local tmp = {}
 
-
 	-- prepare sort
 	for key, vertex in pairs(vertices) do
-
 		-- v1
 		-- table.insert(tmp, key, vectorAngle(centreX, centreY, vertex.x, vertex.y))
 
@@ -532,7 +500,7 @@ end
 		table.insert(tmp, key, math.atan2(vertex.y - centreY, vertex.x - centreX))
 	end
 
-	table.sort(vertices, function (vertexA, vertexB)
+	table.sort(vertices, function(vertexA, vertexB)
 		return tmp[vertexA.index] < tmp[vertexB.index]
 	end)
 
@@ -544,26 +512,22 @@ end
 	 * @method isConvex
 	 * @param {vertices} vertices
 	 * @return {bool} `true` if the `vertices` are convex, `false` if not (or `null` if not computable).
- ]]--
+ ]]
+--
 
 -- http://paulbourke.net/geometry/polygonmesh/
 -- Copyright (c) Paul Bourke (use permitted)
 
- function Vertices.isConvex(vertices)
-
+function Vertices.isConvex(vertices)
 	local flag = 0
 	local n = #vertices
-	local j, k, z,
-		vertice,
-		verticeNext,
-		verticeAfterNext
+	local j, k, z, vertice, verticeNext, verticeAfterNext
 
-	if (n < 3) then
+	if n < 3 then
 		return nil
 	end
 
 	for i = 1, n do
-
 		-- TODO: Optimise me
 
 		j = (i + 1) % n
@@ -576,19 +540,18 @@ end
 		z = (verticeNext.x - vertice.x) * (verticeAfterNext.y - verticeNext.y)
 		z -= (verticeNext.y - vertice.y) * (verticeAfterNext.x - verticeNext.x)
 
-		if (z < 0) then
+		if z < 0 then
 			flag |= 1
-		elseif (z > 0) then
+		elseif z > 0 then
 			flag |= 2
 		end
 
-		if (flag == 3) then
+		if flag == 3 then
 			return false
 		end
 	end
 
 	return (flag ~= 0) and true or nil
-
 end
 
 --[[
@@ -596,17 +559,16 @@ end
 	 * @method hull
 	 * @param {vertices} vertices
 	 * @return [vertex] vertices
- ]]--
+ ]]
+--
 
 -- http://geomalgorithms.com/a10-_hull-1.html
 
- function Vertices.hull(vertices)
-
+function Vertices.hull(vertices)
 	local upper = {}
 	local lower = {}
 	local tmp = {}
-	local vertex,
-		adx, bdx -- sorting
+	local vertex, adx, bdx -- sorting
 
 	-- sort vertices on x-axis (y-axis for ties)
 
@@ -627,10 +589,9 @@ end
 	-- TODO: Optimise me
 
 	for i = 1, n do
-
 		vertex = vertices[i]
 
-		while (#lower >= 2 and Vector.cross3(lower[#lower - 1], lower[#lower], vertex) <= 0) do
+		while #lower >= 2 and Vector.cross3(lower[#lower - 1], lower[#lower], vertex) <= 0 do
 			table.remove(lower)
 		end
 
@@ -641,8 +602,7 @@ end
 	for i = n, 1, -1 do
 		vertex = vertices[i]
 
-		while (#upper >= 2 and Vector.cross3(upper[#upper - 1], upper[#upper], vertex) <= 0) do
-
+		while #upper >= 2 and Vector.cross3(upper[#upper - 1], upper[#upper], vertex) <= 0 do
 			table.remove(upper)
 		end
 
@@ -656,7 +616,3 @@ end
 
 	return table.union(upper, lower)
 end
-
-
-
-
