@@ -5,6 +5,7 @@
 ]]
 --
 
+---@class Common
 Common = {}
 Common.__index = Common
 

@@ -10,6 +10,7 @@ import("../geometry/Vertices")
 import("../geometry/Vector")
 import("../geometry/Bounds")
 
+---@class Resolver
 Resolver = {}
 Resolver.__index = Resolver
 

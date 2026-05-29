@@ -5,6 +5,7 @@ local tmpPoint2 = {}
 local tmpLine1 = {}
 local tmpLine2 = {}
 
+---@class PolyDecomp
 PolyDecomp = {}
 PolyDecomp.__index = PolyDecomp
 

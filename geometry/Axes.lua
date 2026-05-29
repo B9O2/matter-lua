@@ -8,6 +8,7 @@
 import("Vector")
 import("../core/Common")
 
+---@class Axes
 Axes = {}
 Axes.__index = Axes
 

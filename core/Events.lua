@@ -9,6 +9,7 @@
 
 import("Common")
 
+---@class Events
 Events = {}
 Events.__index = Events
 

@@ -7,6 +7,7 @@
 
 import("Events")
 
+---@class Sleeping
 Sleeping = {}
 Sleeping.__index = Sleeping
 

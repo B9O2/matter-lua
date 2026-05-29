@@ -16,6 +16,23 @@ import("../geometry/Bounds")
 import("../geometry/Axes")
 import("../core/Common")
 
+---@class Constraint
+---@field id integer
+---@field label string
+---@field type string
+---@field bodyA Body
+---@field bodyB Body
+---@field pointA Vector
+---@field pointB Vector
+---@field stiffness number
+---@field damping number
+---@field angularStiffness number
+---@field angleA number
+---@field angleB number
+---@field length number
+---@field plugin table
+---@field render {visible: boolean, lineWidth: number, strokeStyle: string, type: string, anchors: boolean}
+---@overload fun(options?: table): Constraint
 Constraint = {}
 Constraint.__index = Constraint
 Constraint._warming = 0.4
