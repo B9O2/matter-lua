@@ -16,7 +16,6 @@ import("../render/Render")
 import("../core/Common")
 import("../geometry/Bounds")
 import("../geometry/Axes")
-import("../helpers/table")
 
 ---@class Body
 ---@field id integer
