@@ -313,6 +313,9 @@ end
 --
 
 function Render.startViewTransform(render)
+	if not render.context then
+		return
+	end
 	local boundsWidth = render.bounds.max.x - render.bounds.min.x
 	local boundsHeight = render.bounds.max.y - render.bounds.min.y
 	local boundsScaleX = boundsWidth / render.options.width
@@ -338,6 +341,9 @@ end
 --
 
 function Render.endViewTransform(render)
+	if not render.context then
+		return
+	end
 	render.context.setTransform(render.options.pixelRatio, 0, 0, render.options.pixelRatio, 0, 0)
 end
 
@@ -563,7 +569,6 @@ end
 --
 
 function Render.constraints(constraints, context)
-	local c = context
 	local n = #constraints
 
 	for i = 1, n do
@@ -585,9 +590,7 @@ function Render.constraints(constraints, context)
 			end
 
 			if constraint.render.type == "pin" then
-				c.beginPath()
-				c.arc(_start.x, _start.y, 3, 0, 2 * math.pi)
-				c.closePath()
+				gfx.drawCircleAtPoint(_start.x, _start.y, 3)
 			else
 				if bodyB then
 					_end = Vector.add(bodyB.position, constraint.pointB)
@@ -595,41 +598,29 @@ function Render.constraints(constraints, context)
 					_end = constraint.pointB
 				end
 
-				c.beginPath()
-				c.moveTo(_start.x, _start.y)
-
 				if constraint.render.type == "spring" then
 					local delta = Vector.sub(_end, _start)
 					local normal = Vector.perp(Vector.normalise(delta))
 					local coils = math.ceil(Common.clamp(constraint.length / 5, 12, 20))
 					local offset
+					local lastX, lastY = _start.x, _start.y
 
 					for j = 1, coils do
 						offset = j % 2 == 0 and 1 or -1
-
-						c.lineTo(
-							_start.x + delta.x * (j / coils) + normal.x * offset * 4,
-							_start.y + delta.y * (j / coils) + normal.y * offset * 4
-						)
+						local nextX = _start.x + delta.x * (j / coils) + normal.x * offset * 4
+						local nextY = _start.y + delta.y * (j / coils) + normal.y * offset * 4
+						gfx.drawLine(lastX, lastY, nextX, nextY)
+						lastX, lastY = nextX, nextY
 					end
+					gfx.drawLine(lastX, lastY, _end.x, _end.y)
+				else
+					gfx.drawLine(_start.x, _start.y, _end.x, _end.y)
 				end
-
-				c.lineTo(_end.x, _end.y)
-			end
-
-			if constraint.render.lineWidth then
-				c.lineWidth = constraint.render.lineWidth
-				c.strokeStyle = constraint.render.strokeStyle
-				c.stroke()
 			end
 
 			if constraint.render.anchors then
-				c.fillStyle = constraint.render.strokeStyle
-				c.beginPath()
-				c.arc(_start.x, _start.y, 3, 0, 2 * math.pi)
-				c.arc(_end.x, _end.y, 3, 0, 2 * math.pi)
-				c.closePath()
-				c.fill()
+				gfx.fillCircleAtPoint(_start.x, _start.y, 3)
+				gfx.fillCircleAtPoint(_end.x, _end.y, 3)
 			end
 			break
 		until true
@@ -838,12 +829,18 @@ function Render.bodyWireframes(render, bodies, context)
 		repeat
 			body = bodies[i]
 
+			if not body.render.visible then
+				break
+			end
+
+			-- 边界检查：改用配置的宽和高，稍微放宽一点
+			local width = render.options.width or 400
+			local height = render.options.height or 240
 			if
-				not body.render.visible
-				or body.position.x > 400
-				or body.position.x < 0
-				or body.position.y < 0
-				or body.position.y > 240
+				body.position.x > width + 200
+				or body.position.x < -200
+				or body.position.y < -200
+				or body.position.y > height + 200
 			then
 				break
 			end
