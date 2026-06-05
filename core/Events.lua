@@ -126,7 +126,7 @@ function Events.trigger(object, eventNames, event)
 
 				local c = #callbacks
 				for j = 1, c do
-					callbacks[j](object, table.unpack(eventClone))
+					callbacks[j](eventClone)
 				end
 			end
 		end

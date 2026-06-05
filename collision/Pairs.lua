@@ -56,10 +56,13 @@ function Pairs.update(pairs, collisions, timestamp)
 	local collisionActive = pairs.collisionActive
 	local collision, pairId, pair
 
-	-- clear collision state arrays, but maintain old reference
-	collisionStart = {}
-	collisionEnd = {}
-	collisionActive = {}
+	-- clear collision state arrays
+	pairs.collisionStart = {}
+	pairs.collisionEnd = {}
+	pairs.collisionActive = {}
+	collisionStart = pairs.collisionStart
+	collisionEnd = pairs.collisionEnd
+	collisionActive = pairs.collisionActive
 
 	local n = #pairsList
 
