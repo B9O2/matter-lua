@@ -247,7 +247,7 @@ end
  ]]
 --
 function Composite.removeBody(composite, body, deep)
-	for key, item in pairs(compositeA.bodies) do
+	for key, item in pairs(composite.bodies) do
 		if item == body then
 			Composite.removeBodyAt(composite, key)
 			-- Composite.setModified(composite, true, true, false)
@@ -307,7 +307,7 @@ end
 --
 
 function Composite.removeConstraint(composite, constraint, deep)
-	for key, item in pairs(compositeA.constraints) do
+	for key, item in pairs(composite.constraints) do
 		if item == constraint then
 			Composite.removeConstraintAt(composite, key)
 			break
